@@ -1,0 +1,75 @@
+{
+  "dialogAddLocation":{
+    "helpNeeded": "Help needed",
+    "foodGiven": "I just gave food",
+    "addDonationCenter": "Add a donation centre",
+    "cancel": "Cancel"
+  },
+  "dialogCharities":{
+    "charities": "Charities"
+  },
+  "dialogInformation":{
+    "information": "Information",
+    "addNewLocation": "Add a new location",
+    "touchMap": "Touch the map",
+    "selectLocation": "Select a location",
+    "helpNeeded": "Help needed",
+    "someoneWasFound": "I found someone in need of food & supplies",
+    "foodGiven": "Food given",
+    "someoneWasGivenFood": "I just gave food & supplies to someone on the street",
+    "donateCenter": "Donation centre",
+    "newDonationCenter": "I will set up this location to receive donations and organise food distribution events",
+    "authors": "Authors of the application",
+    "madeBy": "Made with ❤️ by",
+    "inspiredBy": "Inspired by"
+  },
+  "dialogLocation":{
+    "donateCenter": "Donation centre",
+    "helpNeeded": "Help needed!",
+    "foodGiven": "Food given 🎉!",
+    "justGaveFood":"I just gave food 🎉",
+    "lastGiving": "Last giving",
+    "nobody": "Nobody's here... 🤷‍♀️",
+    "lastChecking": "Last checking",
+    "numberOfChecks": "{numberOfChecks} people",
+    "checked": "checked"
+  },
+  "dialogNewDonationCentre":{
+    "newDonationCenter": "New donation centre",
+    "name": "Name",
+    "nameRequired": "Name is required",
+    "description": "Description",
+    "address": "Address",
+    "addressRequired": "Address is required",
+    "phone": "Phone",
+    "phoneRequired": "Phone is required",
+    "facebookLink": "Facebook link",
+    "instagramLink": "Instagram link",
+    "create": "Create"
+  },
+  "dialogProfile":{
+    "profile": "Profile",
+    "name": "Name",
+    "saved": "Saved"
+  },
+  "app": {
+    "version": "Version: {version}"
+  },
+  "googleMapLoader": {
+    "addPlace": "Add a place",
+    "geolocationFailed": "Error: The Geolocation service failed.",
+    "geolocationNotSupported": "Error: Your browser doesn't support geolocation.",
+    "featureNotAvailable": "Feature not yet available"
+  },
+  "update":{
+    "applicationUpdated":"Application updated",
+    "newVersionAvailable": "New version available 🎉",
+    "update": "Update"
+  },
+  "store": {
+    "locationRemoved": "Location removed",
+    "newVersionAvailable": "New version available 🎉"
+  },
+  "applicationUpdated": "Application updated",
+  "contactAuthors": "Please contact the authors of the application to register your donation centre"
+}

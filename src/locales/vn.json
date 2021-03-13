@@ -1,0 +1,75 @@
+{
+  "dialogAddLocation": {
+    "helpNeeded": "Cần trợ giúp",
+    "foodGiven": "Tôi vừa trao đồ ăn",
+    "addDonationCenter": "Thêm trung tâm quyên góp",
+    "cancel": "Hủy"
+  },
+  "dialogCharities": {
+    "charities": "Tổ chức từ thiện"
+  },
+  "dialogInformation": {
+    "information": "Thông tin",
+    "addNewLocation": "Thêm vị trí mới",
+    "touchMap": "Chạm vào bản đồ",
+    "selectLocation": "Chọn một vị trí",
+    "helpNeeded": "Cần trợ giúp",
+    "someoneWasFound": "Tôi thấy có người cần trợ giúp",
+    "foodGiven": "Thức ăn đã được trao",
+    "someoneWasGivenFood": "Tôi vừa trao thức ăn hay đồ dùng cần thiết cho người trên đường",
+    "donateCenter": "Trung tâm quyên góp",
+    "newDonationCenter": "Tôi sẽ thiết lập địa điểm này để nhận quyên góp và tổ chức các buổi phân phát quà cho người sống trên đường phố",
+    "authors": "Tác giả của ứng dụng",
+    "madeBy": "Làm từ ❤️ bởi",
+    "inspiredBy": "Lấy cảm hứng từ"
+  },
+  "dialogLocation": {
+    "donateCenter": "Trung tâm quyên góp",
+    "helpNeeded": "Cần trợ giúp!",
+    "foodGiven": "Thức ăn đã được trao 🎉!",
+    "justGaveFood": "Tôi vừa trao đồ ăn 🎉",
+    "lastGiving": "Trợ giúp lần cuối",
+    "nobody": "Không có ai ở đây ... 🤷‍♀️",
+    "lastChecking": "Lần cuối kiểm tra",
+    "numberOfChecks": "{numberOfChecks} người",
+    "checked": "đã kiểm tra"
+  },
+  "dialogNewDonationCentre": {
+    "newDonationCenter": "Trung tâm quyên góp mới",
+    "name": "Tên",
+    "nameRequired": "Bạn cần điền tên của trung tâm quyên góp",
+    "description": "Mô tả về hoạt động",
+    "address": "Địa chỉ",
+    "addressRequired": "Bạn cần điền địa chỉ",
+    "phone": "Điện thoại",
+    "phoneRequired": "Bạn cần điền số điện thoại",
+    "facebookLink": "Facebook",
+    "instagramLink": "Instagram",
+    "create": "Tạo mới"
+  },
+  "dialogProfile": {
+    "profile": "Tài khoản",
+    "name": "Tên",
+    "save": "Đã lưu"
+  },
+  "app": {
+    "version": "Phiên bản: {version}"
+  },
+  "googleMapLoader": {
+    "addPlace": "Thêm một địa điểm",
+    "geolocationFailed": "Lỗi: Dịch vụ vị trí địa lý không thành công.",
+    "geolocationNotSupported": "Lỗi: Trình duyệt của bạn không hỗ trợ định vị địa lý.",
+    "featureNotAvailable": "Tính năng chưa khả dụng"
+  },
+  "update": {
+    "applicationUpdated": "Đã cập nhật ứng dụng",
+    "newVersionAvailable": "Đã có phiên bản mới 🎉",
+    "update": "Cập nhật"
+  },
+  "store": {
+    "locationRemoved": "Vị trí đã bị xóa",
+    "newVersionAvailable": "Đã có phiên bản mới 🎉"
+  },
+  "applicationUpdated": "Đã cập nhật ứng dụng",
+  "contactAuthors": "Vui lòng liên hệ với admin để đăng ký trung tâm quyên góp của bạn"
+}
