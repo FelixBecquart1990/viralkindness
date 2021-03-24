@@ -16,6 +16,9 @@ module.exports = {
     name: 'Viral Kindness',
     themeColor: '#43809F',
     backgroundColor: '#43809F',
-    msTileColor: '#43809F'
+    msTileColor: '#43809F',
+    manifestOptions: {
+      background_color: '#43809F'
+    }
   }
 }

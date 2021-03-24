@@ -5,10 +5,10 @@ import "firebase/firestore";
 import "firebase/analytics";
 import "firebase/storage";
 
-// firebase init
-const config = {
 //add Firebase config here
+const config = {
 };
+
 firebase.initializeApp(config);
 
 firebase.analytics();

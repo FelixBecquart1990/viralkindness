@@ -108,7 +108,7 @@
           </v-btn>
         </v-row>
 
-        <v-row no-gutters class="mx-6 pb-12 mt-7">
+        <v-row no-gutters class="mx-6 mt-7 pb-12">
           <v-text-field
             :label="$t('dialogProfile.name')"
             outlined

@@ -198,7 +198,10 @@
         <v-btn
           icon
           class="ma-2 white--text"
-          :class="{ 'error--text': user.id === selectedMarker.userId }"
+          :class="{
+            'error--text':
+              user.id === selectedMarker.userId && !selectedMarker.modified,
+          }"
           style="position: absolute; top: 0; left: 0"
           @click="$emit('removeLocation', selectedMarker.id)"
           ><v-icon>mdi-delete-outline</v-icon></v-btn

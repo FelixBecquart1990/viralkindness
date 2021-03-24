@@ -21,7 +21,8 @@
     "newDonationCenter": "I will set up this location to receive donations and organise food distribution events",
     "authors": "Authors of the application",
     "madeBy": "Made with ❤️ by",
-    "inspiredBy": "Inspired by"
+    "inspiredBy": "Inspired by",
+    "helpUs": "Help us improve this app"
   },
   "dialogLocation":{
     "donateCenter": "Donation centre",

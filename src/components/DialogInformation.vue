@@ -150,6 +150,18 @@
             >Viral Kindness</a
           >
         </v-card-text>
+        <v-row no-gutters class="mx-6 pb-8" justify="center">
+          <v-btn
+            class="mt-2 text-none rounded-pill"
+            color="primary"
+            large
+            depressed
+            href="https://www.facebook.com/groups/viralkindnessapp"
+            target="_blank"
+          >
+            {{ $t("dialogInformation.helpUs") }}
+          </v-btn>
+        </v-row>
       </v-card>
     </v-dialog>
   </div>

@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    version:"0.0.20",
+    version:"0.0.25",
     snackbar: { active: false, color: "", mode: "", timeout: -1, text: "", update: false },
     dialogLocation:false,
     dialogAddLocation:false,
@@ -122,7 +122,7 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    updateLocation({ state, commit }, update) {
+    updateLocation({ state, commit, dispatch }, update) {
       console.log("updateLocation");
       commit("setDialogLocation", false);
       let data = {}
@@ -132,8 +132,12 @@ export default new Vuex.Store({
         data.lastChecking = fb.firebase.firestore.Timestamp.now()
       }
       if (update.type === "lastChecking"){
+        if(update.marker.numberOfChecks && update.marker.numberOfChecks > 0){
+          dispatch('removeMarker', update.marker)
+          return
+        }
         data.lastChecking = fb.firebase.firestore.Timestamp.now()
-        data.numberOfChecks = update.marker.numberOfChecks?update.marker.numberOfChecks+1:2
+        data.numberOfChecks = update.marker.numberOfChecks?update.marker.numberOfChecks+1:1
       }
       fb.db
         .collection("markers")

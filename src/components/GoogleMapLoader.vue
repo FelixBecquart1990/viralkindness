@@ -64,6 +64,7 @@ export default {
       apiKey: "", // add your google API key here
       newLocation: null,
       liveData: null,
+      userPosition: null,
     };
   },
   props: ["location"],
@@ -94,89 +95,32 @@ export default {
         .orderBy("createdAt", "desc")
         .limit(100)
         .onSnapshot(function (querySnapshot) {
+          let timestamp = fb.firebase.firestore.Timestamp.now();
           // console.log("size " + querySnapshot.size);
           querySnapshot.docChanges().forEach(function (change) {
+            if (!change.doc.id) return;
             let data = Object.assign({ id: change.doc.id }, change.doc.data());
+
             if (change.type === "added") {
-              if (!change.doc.id) return;
-              // console.log("add ", change.doc.id);
-              if (!data.lastGiving && !data.lastChecking) {
-                data.type = "donation-center";
-              } else if (
-                (!data.lastGiving && data.lastChecking) ||
-                data.lastGiving < data.lastChecking
-              ) {
-                data.type = "help-needed";
-              } else {
-                if (
-                  data.lastGiving <
-                  fb.firebase.firestore.Timestamp.now() - 86400000
-                ) {
-                  data.type = "help-needed";
-                } else {
-                  data.type = "food-given";
-                }
-              }
-              const marker = new google.maps.Marker({
-                ...data,
-                position: new google.maps.LatLng(
-                  data.position.latitude,
-                  data.position.longitude
-                ),
-                map: self.map,
-                icon: self.getIcon(data.type),
-                animation: google.maps.Animation.DROP,
-              });
-              self.$store.commit("addMarker", marker);
-              marker.addListener("click", (data) => {
-                self.$store.commit("setSelectedMarkerId", marker.id);
-                self.$store.commit("setDialogLocation", true);
-              });
+              data.type = self.getType(data, timestamp);
+
+              self.setMarker(data, "addMarker");
             }
             if (change.type === "modified") {
               // console.log("modify ", change.doc.id);
-              if (!change.doc.id) return;
               if (data.lastGiving || data.lastChecking) {
                 // remove previous marker
                 let markerToUpdate = self.$store.state.markers.find(
                   (marker) => marker.id === data.id
                 );
                 markerToUpdate.setMap(null);
-                if (
-                  (!data.lastGiving && data.lastChecking) ||
-                  data.lastGiving < data.lastChecking
-                ) {
-                  data.type = "help-needed";
-                } else {
-                  if (
-                    data.lastGiving <
-                    fb.firebase.firestore.Timestamp.now() - 86400000
-                  ) {
-                    data.type = "help-needed";
-                  } else {
-                    data.type = "food-given";
-                  }
-                }
-                const marker = new google.maps.Marker({
-                  ...data,
-                  position: new google.maps.LatLng(
-                    data.position.latitude,
-                    data.position.longitude
-                  ),
-                  map: self.map,
-                  icon: self.getIcon(data.type),
-                  animation: google.maps.Animation.DROP,
-                });
-                // console.log("modified marker: ", marker);
-                self.$store.commit("modifyMarker", marker);
-                marker.addListener("click", (data) => {
-                  self.$store.commit("setSelectedMarkerId", marker.id);
-                  self.$store.commit("setDialogLocation", true);
-                });
+
+                data.type = self.getType(data, timestamp);
+
+                self.setMarker(data, "modifyMarker");
               }
             }
             if (change.type === "removed") {
-              if (!change.doc.id) return;
               // console.log("removed ", change.doc.id);
               let markerToRemove = self.$store.state.markers.find(
                 (marker) => marker.id === data.id
@@ -193,6 +137,43 @@ export default {
       //   );
       // }
     },
+    setMarker(data, action) {
+      const marker = new google.maps.Marker({
+        ...data,
+        position: new google.maps.LatLng(
+          data.position.latitude,
+          data.position.longitude
+        ),
+        map: this.map,
+        icon: this.getIcon(data),
+        animation: google.maps.Animation.DROP,
+      });
+
+      this.$store.commit(action, marker);
+      marker.addListener("click", (data) => {
+        this.$store.commit("setSelectedMarkerId", marker.id);
+        this.$store.commit("setDialogLocation", true);
+      });
+    },
+    getType(data, timestamp) {
+      // console.log("add ", change.doc.id);
+      if (!data.lastGiving && !data.lastChecking) {
+        return "donation-center";
+      } else if (
+        (!data.lastGiving && data.lastChecking) ||
+        data.lastGiving < data.lastChecking
+      ) {
+        return "help-needed";
+      } else {
+        // console.log("lastGiving ", data.lastGiving.seconds);
+        // console.log("timestamp  ", timestamp.seconds - 86400);
+        if (data.lastGiving.seconds < timestamp.seconds - 86400) {
+          return "help-needed";
+        } else {
+          return "food-given";
+        }
+      }
+    },
     getUserPosition() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -203,6 +184,20 @@ export default {
             };
             this.map.setZoom(18);
             this.map.panTo(pos);
+            if (this.userPosition) {
+              this.userPosition.setMap(null);
+            }
+            this.userPosition = new google.maps.Marker({
+              position: pos,
+              map: this.map,
+              icon: `/img/illustrations/motorbike.svg`,
+              animation: google.maps.Animation.DROP,
+            });
+            this.userPosition.addListener("click", (data) => {
+              this.$store.commit("setDialogLocation", false);
+              this.addMarker(data.latLng);
+              this.$store.commit("setDialogAddLocation", true);
+            });
           },
           () => {
             this.$store.commit("setSnackbar", {
@@ -286,7 +281,7 @@ export default {
       let markerData = Object.assign(data, {
         position: this.newLocation,
         map: this.map,
-        icon: this.getIcon(data.type),
+        icon: this.getIcon(data),
         animation: google.maps.Animation.DROP,
         userId: this.user.id,
       });
@@ -307,14 +302,18 @@ export default {
     getRandom() {
       return Math.floor(Math.random() * 3 + 1);
     },
-    getIcon(type) {
-      if (type === "food-given") {
+    getIcon(data) {
+      if (data.type === "food-given") {
         return `/img/illustrations/food-donation-2.svg`;
       }
-      if (type === "help-needed") {
-        return `/img/illustrations/food-donation-2-empty.svg`;
+      if (data.type === "help-needed") {
+        if (data.numberOfChecks && data.numberOfChecks > 0) {
+          return `/img/illustrations/food-donation-2-nobody.svg`;
+        } else {
+          return `/img/illustrations/food-donation-2-empty.svg`;
+        }
       }
-      if (type === "donation-center") {
+      if (data.type === "donation-center") {
         return "/img/illustrations/donation-center.svg";
       }
     },
